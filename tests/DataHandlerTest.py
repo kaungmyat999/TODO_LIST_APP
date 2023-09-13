@@ -6,13 +6,6 @@ parent = os.path.dirname(current)
 grandParent = os.path.dirname(parent)
 sys.path.append(parent)
 from controller.utils.DataHandler import (
-    getCollection,
-    getTasks,
-    updator,
-    addTask,
-    updateTask,
-    deleteTask,
-    getBothTasks,
     analyzer,
     percentageCalculator
 )

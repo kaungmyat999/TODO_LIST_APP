@@ -1,8 +1,6 @@
 import pika
 import json
 
-
-
 def sendMessage():
     event_data = {
         'event' : 'Congratulations You Finished All!!!'

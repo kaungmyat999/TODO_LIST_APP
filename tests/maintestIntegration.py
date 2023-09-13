@@ -1,4 +1,3 @@
-from fastapi import FastAPI, HTTPException
 import os,sys,json
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)

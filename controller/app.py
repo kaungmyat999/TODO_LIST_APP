@@ -1,13 +1,15 @@
-from flask import Flask, render_template,jsonify
-from routes import formHandlerBP
-from utils.DataHandler import getTasks,addTask,deleteTask,updateTask,getBothTasks,analyzer
-from prometheus_client import Counter, Histogram, generate_latest, REGISTRY
 import os,sys
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
+
+from flask import Flask, render_template,jsonify
+from routes import formHandlerBP
+from utils.DataHandler import getTasks,addTask,deleteTask,updateTask,getBothTasks,analyzer
+from prometheus_client import Counter, Histogram, generate_latest, REGISTRY
 from rabbitmq.consume import get_message
 from rabbitmq.rabbitMQ import sendMessage
+
 app  = Flask(__name__,template_folder='../view/templates')
 
 appRequest_counter = Counter('app_requests_total', 'Total number of requests received')
@@ -49,6 +51,10 @@ def analyzeRoute():
 def metrics():
     return generate_latest(REGISTRY)
 
+@app.route('/health')
+def checkHealth():
+    code = 200
+    return jsonify({"status":code})
 app.register_blueprint(formHandlerBP)
 
 if __name__ == "__main__":

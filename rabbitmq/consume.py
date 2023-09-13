@@ -1,6 +1,5 @@
 import pika
 import json
-from flask import jsonify
 
 
 rabbitmq_host = 'localhost' 
