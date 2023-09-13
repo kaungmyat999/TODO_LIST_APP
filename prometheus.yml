@@ -1,0 +1,16 @@
+global:
+  scrape_interval:     15s
+  
+
+scrape_configs:
+  - job_name: 'Moniter web app'
+    static_configs:
+    - targets: ['localhost:9090']
+    
+  - job_name: "Flask APP"
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['localhost:5000']
+        labels:
+          group: 'production'

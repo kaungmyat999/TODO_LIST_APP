@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+</head>
+<body>
+    <main class="container">
+        <h2 id="title">To-Do App</h2>
+        <h3 style="text-align: center;"> {{eventMessage['event']}}</h3>
+        <div class="inputBox">
+            <form class="form" method="post" action="/addTask">
+                <input type="text" id="taskInputBox" class="box" name="task">
+                <button type="submit" id="addBtn" class="box" >Add</button>
+            </form>
+        </div>
+        {% if length !=0 %}
+            {% for task in toDoData %}
+                    <div  class="taskBox" >
+                        <form method="post" action="/update" class="taskForm">
+                            <input type="text" id="taskInputBox" class="box" name="task" hidden>
+                            <input type="checkbox" class="todoboxs" name="fav_language" >
+                            <label for="html" id="label">{{task}}</label><br>
+                            <button type="submit"  hidden></button>
+                        </form>
+                    </div>
+            {% endfor %}
+        {% endif %}
+
+        <p id="CompletedTxt">Completed: {{completedLength}}</p>
+        {% if completedCount !=0 %} 
+                {% for task in completedTasks %}
+                    <div  class="taskBox" id="CompletedBox">
+                        <form method="post" action="/update" class="taskForm">
+                            <input type="text" id="taskInputBox" class="box" name="task" hidden>
+                            <input type="checkbox" class="todoboxs" name="fav_language" checked>
+                            <label for="html" id="label" style="text-decoration: line-through;">{{task}}</label><br>
+                            <button type="submit" hidden></button>
+                        </form>
+                    </div>
+                {% endfor %}
+        {% endif %}
+        
+        <div>
+            <p> Total Tasks: {{analyzedData['Total_Tasks']}}, Finished Tasks: {{analyzedData['Finished_Tasks']}} </p>
+        </div>
+    </main>
+
+
+</body>
+
+<style>
+    body{
+        background-color: transparent;
+    }
+
+   .container{
+    
+    padding: 0 450px 0 450px
+   }
+
+   #title{
+    text-align: center;
+    margin-top:30px;
+    margin-bottom : 40px;
+   }
+   .taskBox{
+        display: flex;
+        background-color: edebe9;
+        box-shadow: 1px 1px 4px #929292;
+        margin-top: 40px;
+    }
+    .taskBox:hover{
+        background-color: #eaeaea;
+    }
+
+    #CompletedBox{
+        margin-top: 20px;
+    }
+   .inputBox{
+    margin-bottom: 20px;
+   }
+   .box {
+    box-shadow: 1px 1px 5px rgb(221, 211, 211);
+
+   }
+    .form{
+        display: flex;
+        margin-top:10%;
+        
+        /* margin-bottom: auto; */
+        /* align-items: center; */
+        justify-content: space-between;
+
+    }
+    .todoboxs{
+        text-align: left;
+        margin-right: 14px;
+        margin-left: 24px;
+    }
+
+    #addBtn{
+        padding:12px;
+        color: rgb(59, 130, 231);
+        color: black;
+        padding-left: 18px;
+        padding-right: 18px;
+        
+    }
+
+    #taskInputBox{
+        padding-top:0px;
+        padding-bottom: 0px;
+        padding-right: 190px;
+        margin-right: 20px;
+    }
+
+    #label{
+        padding-top: 4px;
+        padding-bottom: 3px;
+    }
+
+
+    #CompletedTxt{
+        margin-top: 80px;
+    }
+</style>
+<script>
+    let checkBoxs =  document.getElementsByClassName('todoboxs')
+
+    for(let checkbox of checkBoxs){
+        checkbox.addEventListener('click',async()=>{
+            form = checkbox.previousElementSibling
+            form.value = checkbox.nextElementSibling.textContent
+            console.log(form.value);
+            btn = checkbox.nextElementSibling.nextElementSibling.nextElementSibling
+            await btn.click()
+        })
+        console.log(checkbox)
+    }
+</script>
+</html>
