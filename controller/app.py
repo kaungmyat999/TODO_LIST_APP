@@ -24,14 +24,14 @@ def home():
     unfinishedTasks, completedTasks,dataLength = getBothTasks()
     totalCompletedTask = len(completedTasks)
     print(totalCompletedTask,dataLength)
-    try:
-        if totalCompletedTask == dataLength : 
-            sendMessage()
-            eventMessage = get_message()
-            
-    except:
-        print("Rabbit MQ server isn't running ")
-        eventMessage= {'event':""}
+    eventMessage= {'event':""}
+    if totalCompletedTask == dataLength :
+        try:
+                sendMessage()
+                eventMessage = get_message()
+
+        except:
+            print("Rabbit MQ server isn't running ")
     return render_template('index.html',
                            toDoData=unfinishedTasks,
                            length=dataLength,
