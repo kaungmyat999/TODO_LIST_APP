@@ -25,20 +25,20 @@ def home():
     totalCompletedTask = len(completedTasks)
     print(totalCompletedTask,dataLength)
     try:
-
         if totalCompletedTask == dataLength : 
             sendMessage()
             eventMessage = get_message()
-            if(eventMessage): print("From APP",type(eventMessage),eventMessage)
+            
     except:
         print("Rabbit MQ server isn't running ")
+        eventMessage= {'event':""}
     return render_template('index.html',
                            toDoData=unfinishedTasks,
                            length=dataLength,
                            completedTasks=completedTasks,
                            completedLength=totalCompletedTask,
                            analyzedData = analyzer(),
-                           eventMessage=eventMessage)
+                           eventMessage= eventMessage)
 
 
 @app.route('/analyze')

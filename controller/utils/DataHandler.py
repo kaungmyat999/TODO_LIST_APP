@@ -70,7 +70,8 @@ def getBothTasks():
     return [unfinishedTasks,completedTasks,len(data)]
 
 def percentageCalculator(completedTasks, TotalTasks):
-    return round((completedTasks/TotalTasks)*100,2)
+    if(TotalTasks > 0):
+        return round((completedTasks/TotalTasks)*100,2)
 
 def analyzer():
     unfinishedTasks, completedTasks, TotalTasks = getBothTasks()

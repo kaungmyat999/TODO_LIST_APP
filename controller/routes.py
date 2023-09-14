@@ -7,7 +7,8 @@ formHandlerBP = Blueprint('add_todo', __name__)
 def addTodoHandler():
     if request.method == 'POST':
         task = request.form.get('task')
-        addTask({task:False})
+        if task != '':
+            addTask({task:False})
         return redirect('/')
     
 @formHandlerBP.route('/update',methods=['POST'])
