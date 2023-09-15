@@ -21,7 +21,7 @@ jobs:
         run: |
           export FLASK_APP=controller/app
           flask run -p 8080  & sleep 5
-          python3 -m unittest DataHandlerTest.py maintestIntegration.py  testDB.py
+          python3 -m unittest tests/DataHandlerTest.py tests/maintestIntegration.py  tests/testDB.py
           curl http://localhost:8080/health
           kill $(jobs -p)
       # - name: Deploy
