@@ -11,7 +11,7 @@ class TestMainIntegration(unittest.TestCase):
 
     def testAnalyzeRoute(self):
 
-        DEFAULT_BASE_URL = "http://localhost:5000"
+        DEFAULT_BASE_URL = "http://localhost:8080"
         BASE_URL = os.environ.get("API_BASE_URL",DEFAULT_BASE_URL)
         endpoint_path = "/analyze"  
         full_url = BASE_URL + endpoint_path
