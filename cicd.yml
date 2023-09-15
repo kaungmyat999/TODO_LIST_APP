@@ -1,0 +1,31 @@
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: | 
+          pip install -r requirements.txt
+          pip install --upgrade pip 
+      - name: Test
+        run: |
+          export FLASK_APP=controller/app
+          flask run -p 8080  & sleep 5
+          curl http://localhost:8080/health
+          kill $(jobs -p)
+      # - name: Deploy
+        # Only run this step if the branch is main
+        # if: github.ref == 'refs/heads/main'
+        # env:
+        #   deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        # run: |
+        #   curl "$deploy_url"
