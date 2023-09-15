@@ -19,8 +19,7 @@ jobs:
           pip install --upgrade pip 
       - name: Test
         run: |
-          export FLASK_APP=controller/app
-          flask run -p 8080  & sleep 5
+          gunicorn -b 0.0.0.0:8080 --chdir controller/ app:app -w 4 & sleep 5
           python3 -m unittest tests/DataHandlerTest.py tests/maintestIntegration.py  tests/testDB.py
           curl http://localhost:8080/health
           kill $(jobs -p)
